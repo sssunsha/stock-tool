@@ -1,0 +1,57 @@
+<div fd-form-item>
+  <label fd-form-label
+    >起始日期: {{ startDate?.toDateString() || "null" }}</label
+  >
+  <fd-date-picker
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="startDate"
+    [compact]="true"
+  ></fd-date-picker>
+</div>
+<div fd-form-item>
+  <label fd-form-label>起始日期: {{ endDate?.toDateString() || "null" }}</label>
+  <fd-date-picker
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="endDate"
+    [compact]="true"
+  ></fd-date-picker>
+</div>
+<div fd-form-item>
+  <button fd-button label="开始" fdType="emphasized" (click)="go()"></button>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">收益率</th>
+      <th scope="col">收益</th>
+      <th scope="col">大盘</th>
+      <th scope="col">小盘</th>
+      <th scope="col">债券</th>
+      <th scope="col">周期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of reports; index as i" (onclick)="onClick(i)">
+      <th scope="row" (onclick)="onClick(i)">{{ i + 1 }}</th>
+      <td (onclick)="onClick(i)">
+        {{ r?.increaseRateTotal | percent: ".2" }}
+      </td>
+      <td
+        [ngClass]="{
+          black: (r.increaseRateTotal || 0) === 0,
+          red: (r.increaseRateTotal || 0) > 0,
+          green: (r.increaseRateTotal || 0) < 0
+        }"
+      >
+        {{ r.endAmount | currency: "CNY":"symbol-narrow" }}
+      </td>
+      <td>{{ r.big }}</td>
+      <td>{{ r.small }}</td>
+      <td>{{ r.bond }}</td>
+      <td>{{ r.everyInDay }}</td>
+    </tr>
+  </tbody>
+</table>

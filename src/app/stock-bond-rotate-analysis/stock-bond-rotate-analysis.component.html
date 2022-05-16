@@ -1,0 +1,57 @@
+<div fd-form-item>
+  <label fd-form-label>大盘股</label>
+  <fd-select [(value)]="bigStockSelected" [compact]="true">
+    <fd-option *ngFor="let option of bigStockOptions" [value]="option.label">{{
+      option.label
+    }}</fd-option>
+  </fd-select>
+</div>
+<div fd-form-item>
+  <label fd-form-label>小盘股</label>
+  <fd-select [(value)]="smallStockSelected" [compact]="true">
+    <fd-option
+      *ngFor="let option of smallStockOptions"
+      [value]="option.label"
+      >{{ option.label }}</fd-option
+    >
+  </fd-select>
+</div>
+<div fd-form-item>
+  <label fd-form-label>债券</label>
+  <fd-select [(value)]="bondSelected" [compact]="true">
+    <fd-option *ngFor="let option of bondOptions" [value]="option.label">{{
+      option.label
+    }}</fd-option>
+  </fd-select>
+</div>
+<div fd-form-item>
+  <label fd-form-label>间隔周期</label>
+  <fd-select [(value)]="dateSelected" [compact]="true">
+    <fd-option *ngFor="let option of dateOptions" [value]="option.value">{{
+      option.label
+    }}</fd-option>
+  </fd-select>
+</div>
+<div fd-form-item>
+  <label fd-form-label
+    >起始日期: {{ startDate?.toDateString() || "null" }}</label
+  >
+  <fd-date-picker
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="startDate"
+    [compact]="true"
+  ></fd-date-picker>
+</div>
+<div fd-form-item>
+  <label fd-form-label>起始日期: {{ endDate?.toDateString() || "null" }}</label>
+  <fd-date-picker
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="endDate"
+    [compact]="true"
+  ></fd-date-picker>
+</div>
+<div fd-form-item>
+  <button fd-button label="计算" fdType="emphasized" (click)="go()"></button>
+</div>

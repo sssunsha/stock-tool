@@ -1,0 +1,50 @@
+<div>
+  <div>盈利率: {{ report?.increaseRateTotal | percent: ".2" }}</div>
+  <div>年化盈利率: {{ report?.increaseRatePerYear | percent: ".2" }}</div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">从</th>
+      <th scope="col">到</th>
+      <th scope="col">持仓股</th>
+      <th scope="col">收益</th>
+      <th scope="col">总资产</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of result; index as i">
+      <th scope="row">{{ i }}</th>
+      <td>
+        {{ r.startDate }}
+        <!-- <p></p>
+        {{ r.startPrice }} -->
+      </td>
+      <td>
+        {{ r.endDate }}
+        <!-- <p></p>
+        {{ r.endPrice }} -->
+      </td>
+      <td>{{ r.currentStock }}</td>
+      <td
+        [ngClass]="{
+          black: (r.currentIncrease || 0) === 0,
+          red: (r.currentIncrease || 0) > 0,
+          green: (r.currentIncrease || 0) < 0
+        }"
+      >
+        {{ r.currentIncrease | currency: "CNY":"symbol-narrow" }}
+      </td>
+      <td
+        [ngClass]="{
+          black: (r.endAmount || 10000) === 10000,
+          red: (r.endAmount || 10000) > 10000,
+          green: (r.endAmount || 10000) < 10000
+        }"
+      >
+        {{ r.endAmount | currency: "CNY":"symbol-narrow" }}
+      </td>
+    </tr>
+  </tbody>
+</table>

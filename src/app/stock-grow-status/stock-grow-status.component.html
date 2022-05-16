@@ -1,0 +1,41 @@
+<div fd-form-item>
+  <label fd-form-label for="input-1">股票/基金编号</label>
+  <input
+    fd-form-control
+    type="text"
+    id="input-1"
+    placeholder=""
+    [(ngModel)]="stockID"
+  />
+</div>
+<div fd-form-item>
+  <label fd-form-label for="input-2"
+    >起始日期: {{ startDate?.toDateString() || "null" }}</label
+  >
+  <fd-date-picker
+    id="input-2"
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="startDate"
+    [compact]="true"
+  ></fd-date-picker>
+</div>
+<div fd-form-item>
+  <label fd-form-label for="input-3"
+    >截止日期: {{ endDate?.toDateString() || "null" }}</label
+  >
+  <fd-date-picker
+    id="input-3"
+    type="single"
+    inputId="datePicker"
+    [(ngModel)]="endDate"
+    [compact]="true"
+  ></fd-date-picker>
+  <button
+    fd-button
+    label="查询"
+    fdType="emphasized"
+    (click)="search()"
+    [disabled]="true"
+  ></button>
+</div>

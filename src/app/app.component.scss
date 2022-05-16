@@ -1,0 +1,10 @@
+:host {
+  padding: 1rem;
+  overflow: auto;
+  .wide-card {
+    min-width: 650px;
+  }
+  .medium-card {
+    min-width: 400px;
+  }
+}
