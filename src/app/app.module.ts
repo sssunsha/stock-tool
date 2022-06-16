@@ -14,6 +14,9 @@ import { StockBondRotateAnalysisComponent } from './stock-bond-rotate-analysis/s
 import { SelectModule } from '@fundamental-ngx/core/select';
 import { StockBondRotateAnalysisReportComponent } from './stock-bond-rotate-analysis-report/stock-bond-rotate-analysis-report.component';
 import { StockBondRotateAnalysisComparisonComponent } from './stock-bond-rotate-analysis-comparison/stock-bond-rotate-analysis-comparison.component';
+import { CheckboxModule } from '@fundamental-ngx/core/checkbox';
+import { FixedCardLayoutModule } from '@fundamental-ngx/core/fixed-card-layout';
+import { ResizableCardLayoutModule } from '@fundamental-ngx/core/resizable-card-layout';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { StockBondRotateAnalysisComparisonComponent } from './stock-bond-rotate-
     FormsModule,
     DatePickerModule,
     SelectModule,
+    ResizableCardLayoutModule,
     FundamentalNgxCoreModule,
+    CheckboxModule,
+    FixedCardLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

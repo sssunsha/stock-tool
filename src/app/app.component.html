@@ -1,7 +1,7 @@
 <div>
-  <fd-fixed-card-layout>
-    <ng-container *ngIf="false">
-      <fd-card cardType="list" *fdCardDef="1">
+  <fd-resizable-card-layout [layoutConfig]="layoutConfig">
+    <fd-resizable-card-item>
+      <fd-card cardType="analytical">
         <fd-card-header>
           <h2 fd-card-title>股票/基金增长情况</h2>
         </fd-card-header>
@@ -9,9 +9,9 @@
           <app-stock-grow-status></app-stock-grow-status>
         </fd-card-content>
       </fd-card>
-    </ng-container>
-    <ng-container>
-      <fd-card cardType="analytical" *fdCardDef="2">
+    </fd-resizable-card-item>
+    <fd-resizable-card-item>
+      <fd-card cardType="analytical">
         <fd-card-header>
           <h2 fd-card-title>股债轮动分析</h2>
         </fd-card-header>
@@ -19,9 +19,9 @@
           <app-stock-bond-rotate-analysis></app-stock-bond-rotate-analysis>
         </fd-card-content>
       </fd-card>
-    </ng-container>
-    <ng-container>
-      <fd-card cardType="analytical" *fdCardDef="3" class="wide-card">
+    </fd-resizable-card-item>
+    <fd-resizable-card-item>
+      <fd-card cardType="analytical" class="wide-card">
         <fd-card-header>
           <h2 fd-card-title>股债轮动分析报告</h2>
         </fd-card-header>
@@ -29,9 +29,9 @@
           <app-stock-bond-rotate-analysis-report></app-stock-bond-rotate-analysis-report>
         </fd-card-content>
       </fd-card>
-    </ng-container>
-    <ng-container>
-      <fd-card cardType="analytical" *fdCardDef="4" class="wide-card">
+    </fd-resizable-card-item>
+    <fd-resizable-card-item>
+      <fd-card cardType="analytical" class="wide-card">
         <fd-card-header>
           <h2 fd-card-title>股债轮动分析比较</h2>
         </fd-card-header>
@@ -39,6 +39,6 @@
           <app-stock-bond-rotate-analysis-comparison></app-stock-bond-rotate-analysis-comparison>
         </fd-card-content>
       </fd-card>
-    </ng-container>
-  </fd-fixed-card-layout>
+    </fd-resizable-card-item>
+  </fd-resizable-card-layout>
 </div>

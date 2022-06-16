@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { StockHelperService } from '../stock-helper.service';
 import {
   bigStockOptions,
@@ -16,6 +16,12 @@ import {
   FdDatetimeAdapter,
   FD_DATETIME_FORMATS,
 } from '@fundamental-ngx/core';
+import { Subscription } from 'rxjs';
+
+export interface LocalStockBondRotateAnalysisReport
+  extends StockBondRotateAnalysisReport {
+  isChecked?: boolean;
+}
 
 @Component({
   selector: 'app-stock-bond-rotate-analysis-comparison',
@@ -32,14 +38,20 @@ import {
     },
   ],
 })
-export class StockBondRotateAnalysisComparisonComponent implements OnInit {
-  reports: Array<StockBondRotateAnalysisReport> = [];
+export class StockBondRotateAnalysisComparisonComponent
+  implements OnInit, OnDestroy
+{
+  reports: Array<LocalStockBondRotateAnalysisReport> = [];
   endDate: FdDate = new FdDate(2022, 4, 29);
   startDate: FdDate = new FdDate(2019, 4, 29);
+  isChecked: boolean = false;
   constructor(
     public stockHelperService: StockHelperService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.stockHelperService.stockAndBondRotateAnalysisReportSubject.subscribe(
@@ -60,8 +72,11 @@ export class StockBondRotateAnalysisComparisonComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  onClick(index: number): void {
-    console.log(index);
+  reportSelectedChanged(): void {
+    // do the compare or look for the details or one report
+    this.stockHelperService.stockAndBondRotateAnalysisReportComparisonSubject.next(
+      this.reports.filter((r) => r.isChecked)
+    );
   }
 
   go(): void {

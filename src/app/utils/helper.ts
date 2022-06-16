@@ -22,3 +22,9 @@ export function dateToStr(date: Date): string {
   }
   return '';
 }
+
+export function addOneDay(dateStr: string): Date {
+  const date = new Date(dateStr);
+  const newDate = new Date(date.getTime() + 3600 * 1000 * 24);
+  return newDate;
+}

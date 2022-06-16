@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable, Subject } from 'rxjs';
 import {
+  addOneDay,
   dateToStr,
   getStockHistoryDetailsArray,
   strToDate,
@@ -27,6 +28,9 @@ export class StockHelperService {
   public isStockBondRotateAnalysisReportVisible = false;
   public stockAndBondRotateAnalysisReportSubject: Subject<StockBondRotateAnalysisReport> =
     new Subject();
+  public stockAndBondRotateAnalysisReportComparisonSubject: Subject<
+    Array<StockBondRotateAnalysisReport>
+  > = new Subject();
 
   private baseUrl: string = 'http://q.stock.sohu.com/hisHq';
 
@@ -109,15 +113,15 @@ export class StockHelperService {
 
     this.isStockBondRotateAnalysisReportVisible = true;
 
-    const bigFirstIndex = bigStockDetails.findIndex(
-      (d) => d[HQ.date] === rawData.start
+    const bigFirstIndex = this.getIndexBasedOnDate(
+      bigStockDetails,
+      rawData.start
     );
-    const smallFirstIndex = smallStockDetails.findIndex(
-      (d) => d[HQ.date] === rawData.start
+    const smallFirstIndex = this.getIndexBasedOnDate(
+      smallStockDetails,
+      rawData.start
     );
-    const bondFirstIndex = bondDetails.findIndex(
-      (d) => d[HQ.date] === rawData.start
-    );
+    const bondFirstIndex = this.getIndexBasedOnDate(bondDetails, rawData.start);
 
     const analysisReport: StockBondRotateAnalysisReport = { ...rawData };
     analysisReport.startDate = new Date(rawData.start);
@@ -418,7 +422,7 @@ export class StockHelperService {
     stockDetails: string[][],
     dateStr: string
   ): number {
-    if (stockDetails.length) {
+    if (stockDetails?.length) {
       const value = stockDetails.find((s) => s[HQ.date] === dateStr);
       if (value) {
         return parseFloat(value[HQ.closePrice]);
@@ -426,6 +430,21 @@ export class StockHelperService {
     }
     window.alert(`can't find ${dateStr} endPrice`);
     return -1;
+  }
+
+  private getIndexBasedOnDate(
+    stockDetails: Array<Array<string>>,
+    dateStr: string
+  ): number {
+    let index = -1;
+    if (stockDetails?.length) {
+      let dStr = dateStr;
+      do {
+        index = stockDetails.findIndex((s) => s[HQ.date] === dStr);
+        dStr = dateToStr(addOneDay(dStr));
+      } while (index === -1);
+    }
+    return index;
   }
 
   private updateCurrentPrice(
